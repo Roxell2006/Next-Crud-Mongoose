@@ -60,6 +60,13 @@
   font-size: 1.5rem;
 }
 
+.bouton{
+  font-size: 1.5rem;
+  margin-top: 50px;
+  width: 8rem;
+  height: 3rem;
+}
+
 .code {
   background: #fafafa;
   border-radius: 5px;

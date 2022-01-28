@@ -17,7 +17,7 @@ const getAll = async (req, res)=>{
 // POST new Product => /api/product
 const newProduct = async (req, res)=>{
     try{
-        const product = await Product.create(req.body.data);
+        const product = await Product.create(req.body);
         res.status(200).json({
            success: true,
            product
@@ -30,9 +30,9 @@ const newProduct = async (req, res)=>{
 // DELETE Product => /api/product/:id
 const deleteProduct = async (req, res)=>{
     try{
-        await Product.deleteOne({ id: req.query.id });
+        await Product.deleteOne({ _id: req.query.id });
         res.status(200).json({
-        success: true,
+            success: true,
             message: 'Product is deleted'
         });
     } catch(error){
@@ -57,7 +57,7 @@ const updateProduct = async (req, res)=>{
         })   
         res.status(200).json({
             success: true,
-            rooms
+            product
         });
     } catch(error){
         responseError(res, error);          

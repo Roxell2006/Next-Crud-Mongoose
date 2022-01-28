@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.wrapper form {
+    min-width: 300px; 
+}
+
+.wrapper form input , .wrapper form select{
+    height: 2.1rem;
+    margin-top: 0;
+}

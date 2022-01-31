@@ -8,17 +8,12 @@
 }
   
 .modalContainer {
-    /* display: none; */
     visibility: hidden;
     position: fixed;
     top: 0;
     width: 100vw;
     height: 100vh;
     transition: visibility 0.4s;
-}
-.modalContainer.active {
-    /* display: block; */
-    visibility: visible;
 }
   
 .overlay {
@@ -29,11 +24,7 @@
     background: #333333d3;
     transition: opacity 0.4s 0.2s ease-out;
 }
-.modalContainer.active .overlay {
-    opacity: 1;
-    transition: opacity 0.4s ease-out;
-}
-  
+ 
 .modal {
     opacity: 0;
     padding: 30px;
@@ -45,13 +36,7 @@
     transform: translate(-50%, calc(-50% - 200px));
     transition: opacity 0.5s ease-out, transform 0.4s ease-out;
 }
-  
-.modalContainer.active .modal {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
-}
-  
+
 .closeModal {
     padding: 8px 10px;
     border: none;

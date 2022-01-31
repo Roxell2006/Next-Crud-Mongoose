@@ -8,20 +8,21 @@ import Modal from '../components/Modal';
 import ProductForm from '../components/ProductForm';
 import styles from '../styles/Home.module.css';
 
-// fonction qui indiquera quel requête envoyé
+// fonction qui indiquera quel requête envoyer
 let fonction = '';
 
-export default function Home() {
+export default function CrudPage() {
 
     // contiendra le contenu de la bdd
     const [products, setProducts] = useState(null);
 
     // State pour la fenêtre modale
-    const [modal, setModal] = useState(false);
-    const [title, setTitle] = useState('Modal Title');
-    const [productData, setProductData] = useState({});
+    const [modal, setModal] = useState(false);              // Active ou désactive
+    const [title, setTitle] = useState('Modal Title');      // Titre de la fenêtre
+    const [productData, setProductData] = useState({});     // valeur des champs du formulaire
 
     useEffect(()=>{
+        // Lit la base de donnée au chargement de la page
         readProductHandler();
     },[]);
 
@@ -39,7 +40,6 @@ export default function Home() {
         }
 
         products && products.forEach(product => {
-            
             data.rows.push({
                 id: product.id,
                 name: product.name,
@@ -58,17 +58,10 @@ export default function Home() {
                     </>
             })
         })
-
         return data;
     }
 
     // Fonctions C.R.U.D
-
-    const readProductHandler = ()=>{
-        fonction = 'read';
-        requeteBdd();
-    }
-
     const createProductHandler = ()=> {
         fonction = 'create';
         setProductData({_id: '', id: '', name: '', category: 'Men', filter: 'top', price: ''});
@@ -76,6 +69,11 @@ export default function Home() {
         setModal(true);
     }
 
+    const readProductHandler = ()=>{
+        fonction = 'read';
+        requeteBdd();
+    }
+    
     const updateProductHandler = (item)=> {
         fonction = 'update';
         setProductData(item);
@@ -88,6 +86,7 @@ export default function Home() {
         requeteBdd(item);  
     }
 
+    // requètes C.R.U.D. sur la BDD
     const requeteBdd = async (item)=> {
         setModal(false);
 
@@ -108,29 +107,22 @@ export default function Home() {
             await axios.delete(`/api/product/${item._id}`);
             readProductHandler();
         }
-        
     }
 
     return (
         <div >
             <Header />
-               
             <main className={styles.main}>
                 <h1 className={styles.title}>Next-Crud-Mongoose</h1>
                 
-                <MDBDataTable
-                    data={tableProducts()}
-                    bordered
-                    striped
-                    hover
-                />
+                <MDBDataTable data={tableProducts()} bordered striped hover />
+
                 <button className="btn btn-primary" onClick={createProductHandler}>Ajout</button>
+
                 <Modal show={modal} title={title} next={()=>{setModal(false);}}>
                     <ProductForm show={modal} data={productData} next={(item)=>{requeteBdd(item)}}/>
                 </Modal>
-
             </main>
-
             <Footer />
         </div>
     );
